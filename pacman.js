@@ -16,7 +16,7 @@ var collision;
 function create() {
 
 	
-	game.stage.backgroundColor = '#FFFFFF';
+	//game.stage.backgroundColor = '#FFFFFF';
 
 	this.game.physics.startSystem(Phaser.Physics.ARCADE);
     map = this.game.add.tilemap('maze');
@@ -26,6 +26,8 @@ function create() {
     layer.resizeWorld();
 
     map.setCollisionByExclusion([35], true, 'Tile Layer 1');
+
+    map.setTileIndexCallback(35, pill, this);
 
     player = this.game.add.sprite(0*16, 16*16, 'man');
 
@@ -47,6 +49,13 @@ function create() {
 
     cursors = this.game.input.keyboard.createCursorKeys();
 
+}
+
+function pill(player, tile)
+{
+    tile.alpha = 0;
+    layer.dirty = true;
+    return false;
 }
 
 function update() {
